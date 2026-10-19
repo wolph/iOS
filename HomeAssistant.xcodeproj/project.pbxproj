@@ -150,6 +150,7 @@
 		42991E612FF4474500C2C76B /* ImproviOS in Frameworks */ = {isa = PBXBuildFile; productRef = 42991E602FF4474500C2C76B /* ImproviOS */; };
 		42A1B2C12F60000000000001 /* ServerInfo+ConfigResponse.test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A1B2C02F60000000000001 /* ServerInfo+ConfigResponse.test.swift */; };
 		42A1B2C12F60000000000002 /* HomeAssistantAPIGetConfig.test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A1B2C02F60000000000002 /* HomeAssistantAPIGetConfig.test.swift */; };
+		42B7A1D3310A00000000A002 /* HomeAssistantAPIMobileAppConfig.test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B7A1D2310A00000000A002 /* HomeAssistantAPIMobileAppConfig.test.swift */; };
 		42A1F0B12E000000000000B1 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 42A1F0A12E000000000000A1 /* Alamofire */; };
 		42A1F0B22E000000000000B2 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 42A1F0A22E000000000000A2 /* Alamofire */; };
 		42A1F0B32E000000000000B3 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 42A1F0A32E000000000000A3 /* Alamofire */; };
@@ -639,6 +640,7 @@
 		4298587D2EB1025E00E33710 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		42A1B2C02F60000000000001 /* ServerInfo+ConfigResponse.test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ServerInfo+ConfigResponse.test.swift"; sourceTree = "<group>"; };
 		42A1B2C02F60000000000002 /* HomeAssistantAPIGetConfig.test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAssistantAPIGetConfig.test.swift; sourceTree = "<group>"; };
+		42B7A1D2310A00000000A002 /* HomeAssistantAPIMobileAppConfig.test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAssistantAPIMobileAppConfig.test.swift; sourceTree = "<group>"; };
 		42A47D4A2C9AEF10003C597D /* DataWidgetsUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataWidgetsUpdater.swift; sourceTree = "<group>"; };
 		42A7F1002FBC000100BEEF01 /* Database/AllowedTag.test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database/AllowedTag.test.swift; sourceTree = "<group>"; };
 		42A7F1002FBC000100BEEF02 /* Database/FrontendThemeVariable.test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database/FrontendThemeVariable.test.swift; sourceTree = "<group>"; };
@@ -3188,6 +3190,7 @@
 				42F467200000000000000001 /* NotificationSender */,
 				421125C62F51DE9200971BAD /* StatePrecision.test.swift */,
 				42A1B2C02F60000000000002 /* HomeAssistantAPIGetConfig.test.swift */,
+				42B7A1D2310A00000000A002 /* HomeAssistantAPIMobileAppConfig.test.swift */,
 				42A1B2C02F60000000000001 /* ServerInfo+ConfigResponse.test.swift */,
 				42EDBC163002FBD10051FC9B /* Models */,
 				42EDBC0C3002FBD10051FC9B /* Extensions */,
@@ -4735,6 +4738,7 @@
 				11764A6C26817FC3007D47F3 /* UserDefaultsValueSync.test.swift in Sources */,
 				421125C72F51DE9200971BAD /* StatePrecision.test.swift in Sources */,
 				42A1B2C12F60000000000002 /* HomeAssistantAPIGetConfig.test.swift in Sources */,
+				42B7A1D3310A00000000A002 /* HomeAssistantAPIMobileAppConfig.test.swift in Sources */,
 				42A1B2C12F60000000000001 /* ServerInfo+ConfigResponse.test.swift in Sources */,
 				114CBAED283AB92D00A9BAFF /* SecTrust+TestAdditions.swift in Sources */,
 				94802EABC64FDEEC9F875310 /* CallServiceResponse.test.swift in Sources */,

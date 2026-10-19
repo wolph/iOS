@@ -63,6 +63,8 @@ public class HomeAssistantAPI {
     private var rejectedReconnectAttempts = 0
     private var rejectedReconnectWorkItem: DispatchWorkItem?
     private var connectivityObserver: NSObjectProtocol?
+    /// When the server last answered the mobile app config request with a 404.
+    private var mobileAppConfigMissingSince: Date?
 
     /// Carries a sensor update that failed to reach this server to a later attempt.
     private(set) lazy var sensorUpdateRetry = SensorUpdateRetry { [weak self] providers in
@@ -640,8 +642,19 @@ public class HomeAssistantAPI {
         server.update { $0.setSetting(value: name, for: .registeredDeviceName) }
     }
 
+    /// How long a server that answered the mobile app config request with a 404 is left alone.
+    /// Long enough that a server without the `ios` component is not asked on every connect, short
+    /// enough that setting the integration up is noticed within the hour. A `var` only so tests
+    /// don't have to move the clock past the token's life.
+    static var mobileAppConfigRetryInterval: TimeInterval = 3600
+
     public func GetMobileAppConfig() -> Promise<MobileAppConfig> {
-        firstly { () -> Promise<MobileAppConfig> in
+        if let mobileAppConfigMissingSince,
+           Current.date().timeIntervalSince(mobileAppConfigMissingSince) < Self.mobileAppConfigRetryInterval {
+            return .value(.init())
+        }
+
+        return firstly { () -> Promise<MobileAppConfig> in
             if server.info.version < .mobileAppConfig {
                 let old: Promise<MobileAppConfigPush> = requestImmutable(
                     path: "ios/push",
@@ -651,9 +664,10 @@ public class HomeAssistantAPI {
             } else {
                 return requestImmutable(path: "ios/config", callingFunctionName: "\(#function)")
             }
-        }.recover { error -> Promise<MobileAppConfig> in
+        }.recover { [self] error -> Promise<MobileAppConfig> in
             if case AFError.responseValidationFailed(reason: .unacceptableStatusCode(code: 404)) = error {
                 Current.Log.info("ios component is not loaded; pretending there's no push config")
+                mobileAppConfigMissingSince = Current.date()
                 return .value(.init())
             }
 
