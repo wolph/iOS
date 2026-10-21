@@ -1,8 +1,25 @@
+import Combine
 @testable import HomeAssistant
 @testable import Shared
 import Testing
 
 struct MainWindowGroupCommandsTests {
+    /// The database updater's routine notification arrives every periodic refresh, changed or not, and
+    /// each publish costs a full menu bar rebuild.
+    @Test @MainActor func applyingTheSameTreeAgainPublishesNothing() {
+        let dataSource = MainWindowGroupCommands.DataSource(notificationCenter: NotificationCenter())
+        let tree = [MainWindowGroupCommands.AreasCommandServer(id: "home", name: "Home", floors: [])]
+        var publishes = 0
+        let subscription: AnyCancellable = dataSource.objectWillChange.sink { publishes += 1 }
+
+        dataSource.apply(tree)
+        dataSource.apply(tree)
+
+        #expect(publishes == 1)
+        #expect(dataSource.servers == tree)
+        withExtendedLifetime(subscription) {}
+    }
+
     @Test func outletsNestUnderThePowerStripTheyArePartOf() {
         let devicesById = Dictionary(
             [

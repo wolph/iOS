@@ -148,13 +148,13 @@ struct MainWindowGroupCommands: Commands {
 
     // MARK: - Menu model
 
-    struct AreasCommandServer: Identifiable {
+    struct AreasCommandServer: Identifiable, Equatable {
         let id: String
         let name: String
         let floors: [AreasCommandFloor]
     }
 
-    struct AreasCommandFloor: Identifiable {
+    struct AreasCommandFloor: Identifiable, Equatable {
         let id: String
         let name: String
         let areas: [AreasCommandArea]
@@ -165,7 +165,7 @@ struct MainWindowGroupCommands: Commands {
         let name: String
     }
 
-    struct AreasCommandArea: Identifiable {
+    struct AreasCommandArea: Identifiable, Equatable {
         let id: String
         let name: String
         let floorId: String?
@@ -173,20 +173,20 @@ struct MainWindowGroupCommands: Commands {
         let devices: [AreasCommandDevice]
     }
 
-    struct AreasCommandDevice: Identifiable {
+    struct AreasCommandDevice: Identifiable, Equatable {
         let id: String
         let name: String
         let domains: [AreasCommandDomain]
         let children: [AreasCommandDevice]
     }
 
-    struct AreasCommandDomain: Identifiable {
+    struct AreasCommandDomain: Identifiable, Equatable {
         let id: String
         let name: String
         let entities: [AreasCommandEntity]
     }
 
-    struct AreasCommandEntity: Identifiable {
+    struct AreasCommandEntity: Identifiable, Equatable {
         var id: String { entityId }
         let entityId: String
         let name: String
@@ -230,8 +230,11 @@ struct MainWindowGroupCommands: Commands {
             }
         }
 
+        /// The updater posts its routine notification after every periodic refresh, changed or not, and
+        /// every publish has UIKit rebuild the whole menu bar on the main thread.
         @MainActor
-        private func apply(_ newServers: [AreasCommandServer]) {
+        func apply(_ newServers: [AreasCommandServer]) {
+            guard newServers != servers else { return }
             servers = newServers
         }
 
